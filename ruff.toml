@@ -1,0 +1,28 @@
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (formatter handles)
+    "B008",  # function call in default argument (Typer needs this)
+]
+
+[lint.per-file-ignores]
+"tests/**" = ["N802", "N803"]
+"examples/**" = ["N802", "N803"]
+"src/crypto_toolkit/orchestrator.py" = ["N818"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
