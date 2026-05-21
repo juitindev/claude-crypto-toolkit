@@ -147,7 +147,9 @@ def benchmark_caching() -> None:
     console.print()
     console.print(table)
 
-    cost_table = Table(title="Cost analysis (input tokens only, normalised to base-rate equivalents)")
+    cost_table = Table(
+        title="Cost analysis (input tokens only, normalised to base-rate equivalents)"
+    )
     cost_table.add_column("Metric", style="bold")
     cost_table.add_column("Run 1", justify="right")
     cost_table.add_column("Run 2", justify="right")
@@ -165,7 +167,11 @@ def benchmark_caching() -> None:
 
     total_uncached = uncached[0] + uncached[1]
     total_effective = effective[0] + effective[1]
-    overall = max(0.0, (total_uncached - total_effective) / total_uncached * 100) if total_uncached > 0 else 0.0
+    overall = (
+        max(0.0, (total_uncached - total_effective) / total_uncached * 100)
+        if total_uncached > 0
+        else 0.0
+    )
     console.print(f"\nOverall savings across both runs: [bold green]{overall:.1f}%[/bold green]")
 
 
@@ -178,11 +184,7 @@ def _effective_input_cost(run: dict[str, int]) -> float:
 
 
 def _uncached_equivalent_cost(run: dict[str, int]) -> int:
-    return (
-        run["input_tokens"]
-        + run["cache_creation_input_tokens"]
-        + run["cache_read_input_tokens"]
-    )
+    return run["input_tokens"] + run["cache_creation_input_tokens"] + run["cache_read_input_tokens"]
 
 
 def _saved_pct(run: dict[str, int]) -> float:
